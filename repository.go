@@ -19,18 +19,19 @@ func (r *Repository) Register(modelType, repo interface{}) {
 func (r *Repository) Get(modelType interface{}) (interface{}, error) {
 	repo, ok := r.repoTypes[reflect.TypeOf(modelType)]
 	if !ok {
-		return nil, errors.New("Couldn't find repo for model")
+		return nil, errors.New("couldn't find repo for model")
 	}
 	return repo, nil
 }
 
+// New Repository.
 func New() *Repository {
 	return &Repository{make(map[reflect.Type]interface{})}
 }
 
-var defaultRepo *Repository = New()
+var defaultRepo = New()
 
-// Associates the provided repository with the type uses the default Repository.
+// Register the provided repository with the type uses the default Repository.
 func Register(modelType, repo interface{}) {
 	defaultRepo.Register(modelType, repo)
 }
